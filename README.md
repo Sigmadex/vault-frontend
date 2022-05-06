@@ -1,27 +1,33 @@
-# Vault Smart Contract
+<img src="https://user-images.githubusercontent.com/33762147/155625647-55c69f06-e0ea-44a8-a425-7aa086c329c5.png" style="border-radius:50%;width:72px;">
 
-## Need to set variables when deploy Vault Smart Contract
-constructor parameters <br>
-@param _c_i : Concave (0 ~ 10)<br>
-@param _c_t : Days (1 ~ )<br>
-@param _c_y0 : Starting Point (0 ~ 100%)<br>
+# React Front-End for Vault.sol Smart Contract (SEP-001)
 
-## Need to set Owner and SDEX Token Contract Address
-function setOwner(address _owner) public<br>
-function setTkn(address _TknContract) public {<br>
+## Curl Installation
 
+Install CURL using the following command:
 
-# Frotend Env Variables
+``sudo apt install curl``
 
-## Need to set env variables in "/public/config/config.json"<br>
-NETWORK_ID: 4 // this is rinkeby network ID for default<br>
-VAULT_ADDRESS: 0x... //address of Vault smart contract<br>
-SDEX_ADDRESS: 0x... //address of SDEX smart contract<br>
+## Obtain NodeJS 14
 
-## Need to set SDEX Contract's abi in "/public/config/SDEX.json" <br>
+Front-end requires NodeJS 14, you can verify your current version by running:
 
-Copy SDEX's ABI to this json file
+``node -v``
 
-## Need to set Vault Contract's abi in "/public/config/Vault.json" (when only changed the vault smart contract) <br>
+Run the following command to download Version 14 which is a minimum requirement.
 
-Copy Vault's ABI to this json file
+``curl -sL https://deb.nodesource.com/setup_14.x | sudo bash -``
+
+After downloading, you can run:
+
+``sudo apt install -y nodejs``
+
+## Download create-react-app
+
+``npm install -g create-react-app``
+
+Switch to create-react-app director and use git to download to the newly created folder.
+
+After overwriting all files, run:
+
+Use ``npm start`` to run the app.
