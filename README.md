@@ -1,6 +1,10 @@
 <img src="https://user-images.githubusercontent.com/33762147/155625647-55c69f06-e0ea-44a8-a425-7aa086c329c5.png" style="border-radius:50%;width:72px;">
 
-# React Front-End for Vault.sol Smart Contract (SEP-001)
+# React Front-End for vault Smart Contract (SEP-001)
+
+## Summary
+
+This application integrates with any Sigmadex Smart Contract Vault. You may change settings in the `config.json` file.
 
 ## Curl Installation
 
@@ -26,8 +30,20 @@ After downloading, you can run:
 
 ``npm install -g create-react-app``
 
-Switch to create-react-app director and use git to download to the newly created folder.
+Switch to create-react-app director and use git to download to the newly created folder and download the repo using:
+
+``gh repo clone Sigmadex/vault-frontend``
+
+Edit the `public/config.json` file to select the appropriated network requested. In this case we are using the Avalanche Fuji testnet.
+
+```
+{
+    "NETWORK_ID": 43113,
+    "API_KEY": "<Enter API Key>",
+    "API_URL": "https://api-testnet.snowtrace.io/"
+}
+```
 
 After overwriting all files, run:
 
-Use ``npm start`` to run the app.
+``npm start`` to run the app.
