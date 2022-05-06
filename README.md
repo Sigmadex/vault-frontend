@@ -30,7 +30,11 @@ After downloading, you can run:
 
 ``npm install -g create-react-app``
 
-Switch to create-react-app director and use git to download to the newly created folder and download the repo using:
+Switch to create-react-app directory and use git to download to the newly created folder.
+
+## Clone Repo into create-react-app folder
+
+Download the repo using:
 
 ``gh repo clone Sigmadex/vault-frontend``
 
