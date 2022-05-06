@@ -51,3 +51,7 @@ Edit the `public/config.json` file to select the appropriate network requested. 
 After overwriting all files, run:
 
 ``npm start`` to run the app.
+
+You may append any vault contract address to the URL to query the contract:
+
+``http://localhost:3000/0x82C879fdBd65aD36f8Fccce3AF6cd5b5E757fD03``
