@@ -32,13 +32,13 @@ After downloading, you can run:
 
 Switch to create-react-app directory and use git to download to the newly created folder.
 
-## Clone Repo into create-react-app folder
+## Clone repository into create-react-app folder
 
 Download the repo using:
 
 ``gh repo clone Sigmadex/vault-frontend``
 
-Edit the `public/config.json` file to select the appropriated network requested. In this case we are using the Avalanche Fuji testnet.
+Edit the `public/config.json` file to select the appropriate network requested. In this case we are using the Avalanche Fuji testnet.
 
 ```
 {
