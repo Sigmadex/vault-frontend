@@ -1,3 +1,5 @@
 {
-    "NETWORK_ID": 43113
+    "NETWORK_ID": 43113,
+    "API_KEY": "<Enter API Key>",
+    "API_URL": "https://api-testnet.snowtrace.io/"
 }
