@@ -47,7 +47,7 @@ Edit the `public/config.json` file to select the appropriate network requested. 
     "API_URL": "https://api-testnet.snowtrace.io/"
 }
 ```
-*Note:* Replace ``API_KEY`` with a SnowTrace testnet API key found at: https://snowtrace.io/apis
+**Note:** Replace ``API_KEY`` with a SnowTrace testnet API key found at: https://snowtrace.io/apis or else history page will not update.
 
 After overwriting all files, run:
 
