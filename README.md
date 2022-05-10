@@ -56,3 +56,5 @@ After overwriting all files, run:
 You may append any vault contract address to the URL to query the contract:
 
 ``http://localhost:3000/0x82C879fdBd65aD36f8Fccce3AF6cd5b5E757fD03``
+
+**Note:** If no contract is appended to the URL, a blank screen will be displayed.
