@@ -49,6 +49,14 @@ Edit the `public/config.json` file to select the appropriate network requested. 
 ```
 **Note:** Replace ``API_KEY`` with a SnowTrace testnet API key found at: https://snowtrace.io/apis or else history page will not update.
 
+## Rewire the app
+
+Use create-react-app 2.x with Webpack 4:
+
+``npm install react-app-rewired --save-dev``
+
+## Run the vault
+
 After overwriting all files, run:
 
 ``npm start`` to run the app.
