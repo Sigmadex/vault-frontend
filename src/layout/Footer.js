@@ -3,10 +3,10 @@ export default function Footer() {
     return (
         <div className='container-fluid p-12 mx-auto flex items-center justify-between h-full text-white gap-7'>
             <div className='w-full text-sm text-[#404C55]' >
-                © 2022 Sigmadex Foundation
+                © 2022 Sigmadex
             </div>
             <ul className="flex flex-row gap-5">
-                <li className = "text-sm text-[#404C55]">
+                <li className = "text-sm text-[#FFFFFF]">
                     154869129
                 </li>
                 <li>
