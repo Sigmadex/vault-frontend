@@ -4,10 +4,13 @@ import { connect } from "./redux/blockchain/blockchainActions";
 import { fetchData} from "./redux/data/dataActions";
 import { useParams } from 'react-router-dom'
 import { ethers } from "ethers";
+import store from "./redux/store";
 
-import './App.css';
+import './App.scss';
 import Header from './layout/Header';
 import Footer from './layout/Footer';
+import Modal from './components/Modal';
+
 function Home() {
   const dispatch = useDispatch();
   const blockchain = useSelector((state) => state.blockchain);
@@ -15,12 +18,17 @@ function Home() {
   const [txData, setTxData] = useState([]);
   const [withdraw, setWithdraw] = useState(false);
   const [firstModal, setFirstModal] = useState(true);
+  const [errorModal, setErrorModal] = useState("");
   const { address } = useParams()
   const getData = () => {
     if ((blockchain.account !== undefined && blockchain.account !== null) && blockchain.vaultcontract !== null) {
       dispatch(fetchData(blockchain.account));
     }
   };
+
+  store.subscribe(() => {
+    setErrorModal(store.getState().blockchain.errorMsg);
+  });
 
   useEffect(() => {
    // console.log('empty call')
@@ -43,6 +51,10 @@ function Home() {
     dispatch(connect(address));
   }
 
+  const closeErrorModal = () => {
+    setErrorModal("");
+  }
+
   const ev_withdraw = async (e) => {
     e.preventDefault();
     if (data.unlocked > 0)
@@ -60,7 +72,7 @@ function Home() {
       getData();
     }
     else 
-      alert("No Available");
+      setErrorModal("Not available.");
   }
 
   const d_connectWallet = () => {
@@ -74,26 +86,29 @@ function Home() {
   const string_makeShort = (str) => {
     return str.substring(0,6)+"..."+str.substring(str.length - 3, str.length);
   }
-  const see_transaction = (e) => {
-    blockchain.vaultcontract.getPastEvents('Withdraw', {
-      fromBlock: 0,
-      toBlock: 'latest'
-    }, function(error, events){ console.log(events); })
-    .then(async function(events){
-        let txList = [];
-        await Promise.all(events.map( async (tx) => {
-          let timestamp = await blockchain.web3.eth.getBlock(tx.blockNumber);
-          txList.push({
-            id: string_makeShort(tx.transactionHash),
-            vaultaddress: string_makeShort(tx.address),
-            destination: string_makeShort(tx.returnValues.withdrawer),
-            timestamp: timestamp.timestamp,
-            claimamount: ethers.BigNumber.from(tx.returnValues.amount).div("1000000000000000000").toString(),
-          });
-        }));
-        setTxData(txList);
-    });
+  const see_transaction = async (e) => {
     setFirstModal(false);
+    let txList = [];
+    const apiUrl = blockchain.apiUrl+'api?module=logs&action=getLogs&fromBlock=0&toBlock=latest&address='+address+'&apikey='+blockchain.apiKey;
+    fetch(apiUrl)
+      .then((response) => response.json())
+      .then( async function(data) {
+          await Promise.all(data.result.map(async (tx) => {
+            console.log("tx", tx);
+            let timestamp = await blockchain.web3.eth.getBlock(parseInt(tx.blockNumber));
+            let detail = await blockchain.web3.eth.getTransactionReceipt(tx.transactionHash);
+            let value = "0x"+tx.data.substring(tx.data.length-64, tx.data.length);
+            console.log("value", value);
+            txList.push({
+              id: string_makeShort(tx.transactionHash),
+              vaultaddress: string_makeShort(tx.address),
+              destination: string_makeShort(detail.from),
+              timestamp: timestamp.timestamp,
+              claimamount: ethers.BigNumber.from(value).div("1000000000000000000").toString(),
+            });
+          }));
+          setTxData(txList);
+      });
   }
 
   const see_firstModal = (e) => {
@@ -231,12 +246,15 @@ function Home() {
     )
   }
   return (
-    <div className = "container font-sans" style = {{background:"url('./images/bg.png') no-repeat", backgroundSize:"100%"}}>
-      <Header add = {address}/>
-      <main className='mt-48 min-h-screen py-8 text-white flex flex-row justify-center'>
-        {firstModal ? d_firstModal() : d_secondModal()}
-      </main>
-      <Footer/>
+    <div className="font-sans wrapper">
+      <div className = "container" >
+        <Header add = {address}/>
+        <main className='mt-36 min-h-screen py-8 text-white flex flex-row justify-center'>
+          {firstModal ? d_firstModal() : d_secondModal()}
+          <Modal open={errorModal != ""} message={errorModal} close={closeErrorModal} />
+        </main>
+        <Footer/>
+      </div>
     </div>
   );
 }
