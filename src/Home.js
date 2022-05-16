@@ -238,7 +238,7 @@ function Home() {
           
           <div className = "flex flex-row justify-end items-center md:w-[700px] w-[500px]">
             <button onClick={(e) => { see_firstModal(e) }} type="button" className="m-3 w-138 rounded-[10px] h-9 border text-[#404C55] h-[46px] mt-6 border-gray-700 focus:border-gray-100 hover:border-lime-800 font-medium text-sm px-5 py-2.5 text-center inline-flex">
-              Next
+              Back
             </button>
           </div>
         </div>
