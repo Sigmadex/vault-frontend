@@ -72,6 +72,8 @@ export const connect = (vaultaddress) => {
           method: "net_version",
         });
         console.log(networkId)
+        const apiKey = config_config.API_KEY
+        const apiUrl = config_config.API_URL
         if (parseInt(networkId) === parseInt(config_config.NETWORK_ID) ) {
           console.log("redo");
           const vaultobject = new Web3EthContract(
@@ -81,20 +83,23 @@ export const connect = (vaultaddress) => {
           dispatch(
             connectSuccess({
               account: accounts[0],
+              apiKey: apiKey,
+              apiUrl: apiUrl,
               vaultcontract: vaultobject,
               web3: web3,
             })
           );
+          dispatch(fetchData(accounts[0]));
           // Add listeners start
           ethereum.on("accountsChanged", (accounts) => {
             console.log("accountschanged");
-            dispatch(updateAccount(accounts[0], vaultobject));
+            dispatch(updateAccount(accounts[0], vaultobject, apiKey, apiUrl));
           });
           
           // Add listeners end
         } else {
-          let msg = "Change Network to Avalanche"
-          alert(msg);
+          // let msg = "Change Network to Avalanche"
+          // alert(msg);
           dispatch(connectFailed(`Change network to ${config_config.NETWORK_ID}.`));
         }
 
@@ -111,9 +116,9 @@ export const connect = (vaultaddress) => {
   };
 };
 
-export const updateAccount = (account, vaultobject) => {
+export const updateAccount = (account, vaultobject, apiKey, apiUrl) => {
   return async (dispatch) => {
-    dispatch(updateAccountRequest({ account: account, vault: vaultobject }));
+    dispatch(updateAccountRequest({ account: account, vault: vaultobject, apiKey: apiKey, apiUrl:apiUrl }));
     dispatch(fetchData(account));
   };
 };
